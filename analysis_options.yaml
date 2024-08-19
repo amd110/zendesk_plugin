@@ -20,18 +20,15 @@ analyzer:
     # Ignore analyzer hints for updating pubspecs when using Future or
     # Stream and not importing dart:async
     # Please see https://github.com/flutter/flutter/pull/24528 for details.
-    sdk_version_async_exported_from_core: ignore
+    # sdk_version_async_exported_from_core: ignore
   exclude:
     - "bin/cache/**"
-  enable-experiment:
-    - extension-methods
 
 linter:
   rules:
     - always_declare_return_types
     - always_put_control_body_on_new_line
     # - always_put_required_named_parameters_first # not crucial and we do it all around
-    - always_require_non_null_named_parameters
     # - always_specify_types # we use type inference
     - annotate_overrides
     # - avoid_annotating_with_dynamic # we want to be explicit with dynamic
@@ -53,7 +50,6 @@ linter:
     - avoid_renaming_method_parameters
     - avoid_return_types_on_setters
     # - avoid_returning_null # we do this commonly
-    - avoid_returning_null_for_future
     - avoid_returning_null_for_void
     - avoid_returning_this
     - avoid_setters_without_getters
@@ -83,12 +79,10 @@ linter:
     - hash_and_equals
     - implementation_imports
     - invariant_booleans
-    - iterable_contains_unrelated_type
     - join_return_with_assignment
     - library_names
     - library_prefixes
     # - lines_longer_than_80_chars # we use it when temporarily adding strings before translations
-    - list_remove_unrelated_type
     - literal_only_boolean_expressions
     - no_adjacent_strings_in_list
     - no_duplicate_case_values
