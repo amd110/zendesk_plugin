@@ -1,5 +1,4 @@
-group 'com.tickmark.zendesk'
-version '1.0-SNAPSHOT'
+package android
 
 buildscript {
     ext.kotlin_version = '1.8.0'
