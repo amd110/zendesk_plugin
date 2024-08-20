@@ -9,7 +9,7 @@ class Zendesk {
 
   /// Initialize the Zendesk SDK with the provided [accountKey] and [appId]
   ///
-  /// Offical Docs
+  /// Official Docs
   /// iOS: https://developer.zendesk.com/embeddables/docs/chat-sdk-v-2-for-ios/getting_started#initializing-the-sdk
   /// Android: https://developer.zendesk.com/embeddables/docs/chat-sdk-v-2-for-android/getting_started#initializing-the-sdk
   static Future<void> initialize(String accountKey, String appId) async {
@@ -66,7 +66,7 @@ class Zendesk {
     });
   }
 
-  /// Utility to optionaly add tags to the conversation. This can be set to
+  /// Utility to optionally add tags to the conversation. This can be set to
   /// a `List` of strings which will then appear to the agent in the chat.
   static Future<void> addTags({List<String>? tags}) async {
     await _channel.invokeMethod<void>('addTags', {
