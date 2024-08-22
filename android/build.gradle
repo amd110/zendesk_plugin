@@ -32,7 +32,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    namespace 'fr.yper.zendesk'
+    namespace 'com.tickmark.zendesk'
     compileSdkVersion 33
 
     sourceSets {
