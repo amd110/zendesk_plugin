@@ -33,13 +33,13 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace 'com.tickmark.zendesk'
-    compileSdkVersion 33
+    compileSdkVersion 34
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 21
     }
     lintOptions {
         disable 'InvalidPackage'
@@ -57,8 +57,8 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation group: 'com.zendesk', name: 'chat', version: '3.1.0'
-    implementation group: 'com.zendesk', name: 'messaging', version: '5.1.0'
+    implementation group: 'com.zendesk', name: 'chat', version: '3.3.1'
+    implementation group: 'com.zendesk', name: 'messaging', version: '5.0.0'
     implementation group: 'com.zendesk', name: 'chat-providers', version: '3.1.0'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
 }
