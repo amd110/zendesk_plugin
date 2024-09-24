@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
           phoneNumber: '0000000000',
           department: 'Support');
       await Zendesk.startChat(primaryColor: Colors.red);
-    } catch (ex) {
+    } on dynamic catch (ex) {
       print('An error occured $ex');
     }
   }

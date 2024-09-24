@@ -33,13 +33,13 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace 'com.tickmark.zendesk'
-    compileSdkVersion 34
+    compileSdkVersion 33
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 16
     }
     lintOptions {
         disable 'InvalidPackage'
@@ -50,18 +50,6 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            shrinkResources false
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../proguard-rules.pro'
-        
-        }
-    }
-
     kotlinOptions {
         jvmTarget=17
     }
@@ -69,23 +57,8 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation group: 'com.zendesk', name: 'chat', version: '3.3.1'
+    implementation group: 'com.zendesk', name: 'chat', version: '3.1.0'
     implementation group: 'com.zendesk', name: 'messaging', version: '5.1.0'
     implementation group: 'com.zendesk', name: 'chat-providers', version: '3.1.0'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
-
-    // AndroidX
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.annotation:annotation:1.6.0'
-
-    // Material Components (Google)
-    implementation 'com.google.android.material:material:1.10.0'
-
-    // Zendesk Chat SDK
-    implementation 'com.zendesk:chat:2.0.0'  // Utilisez la bonne version du SDK que vous maintenez
-    
-    // Retrofit, Gson, etc. (si utilisés)
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-
 }

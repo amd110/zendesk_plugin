@@ -79,7 +79,7 @@ class ZendeskPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
   }
 
   fun initialize(call: MethodCall) {
-    Logger.setLoggable(true)
+    Logger.setLoggable(BuildConfig.DEBUG)
     val accountKey = call.argument<String>("accountKey") ?: ""
     val applicationId = call.argument<String>("appId") ?: ""
 
