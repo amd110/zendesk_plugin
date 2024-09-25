@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.6.0'
+    ext.kotlin_version = '1.8.0'
     repositories {
         google()
         mavenCentral()
@@ -33,7 +33,7 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace 'com.tickmark.zendesk'
-    compileSdkVersion 34
+    compileSdkVersion 33
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
