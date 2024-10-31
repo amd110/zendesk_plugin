@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zendesk_plugin/zendesk_plugin.dart';
+import 'package:zendesk_plugin_plus/zendesk_plugin.dart';
 
 void main() {
   runApp(MyApp());
