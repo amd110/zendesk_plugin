@@ -7,12 +7,12 @@ import CommonUISDK
 import MessagingSDK
 
 
-public class SwiftZendeskPlugin: NSObject, FlutterPlugin {
+public class ZendeskPlugin: NSObject, FlutterPlugin {
     var chatAPIConfig: ChatAPIConfiguration?
     
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "zendesk", binaryMessenger: registrar.messenger())
-        let instance = SwiftZendeskPlugin()
+        let instance = ZendeskPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
     
