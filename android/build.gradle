@@ -1,12 +1,17 @@
+group = "com.teppei.kikuchi.zendesk.plugin"
+version = "1.0-SNAPSHOT"
+
 buildscript {
-    ext.kotlin_version = '1.8.0'
+    ext.kotlin_version = '1.8.22'
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://zendesk.jfrog.io/zendesk/repo' }
+        maven { url 'https://dl.bintray.com/android/android-tools' }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.5.2'
+        classpath 'com.android.tools.build:gradle:8.1.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -15,6 +20,7 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://maven.google.com/' }
         maven { url 'https://zendesk.jfrog.io/zendesk/repo' }
 
         all { ArtifactRepository repo ->
@@ -32,33 +38,42 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    namespace 'com.tickmark.zendesk'
-    compileSdkVersion 33
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.teppei.kikuchi.zendesk.plugin'
+    }
+    compileSdkVersion 34
 
     sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+        main.java.srcDirs += "src/main/kotlin"
     }
+
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 21
     }
+
     lintOptions {
         disable 'InvalidPackage'
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
-        jvmTarget=17
+        jvmTarget = '1.8'
     }
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation group: 'com.zendesk', name: 'chat', version: '3.1.0'
-    implementation group: 'com.zendesk', name: 'messaging', version: '5.1.0'
-    implementation group: 'com.zendesk', name: 'chat-providers', version: '3.1.0'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
+    implementation group: 'com.zendesk', name: 'chat', version: '3.5.0'
+    implementation group: 'com.zendesk', name: 'messaging', version: '5.5.0'
+    implementation group: 'com.zendesk', name: 'chat-providers', version: '3.5.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }

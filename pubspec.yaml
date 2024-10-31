@@ -14,12 +14,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  rename:
 
 flutter:
   plugin:
     platforms:
       android:
-        package: com.tickmark.zendesk
+        package: com.teppei.kikuchi.zendesk.plugin
         pluginClass: ZendeskPlugin
       ios:
         pluginClass: ZendeskPlugin
