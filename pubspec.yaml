@@ -1,4 +1,4 @@
-name: zendesk_plugin
+name: zendesk_plugin_plus
 description: A Flutter plugin for the Zendesk Chat SDK v2. Provides embed chat functionality in your apps to give your mobile users access to your support team
 version: 2.1.0
 homepage: https://github.com/taxfyle/
