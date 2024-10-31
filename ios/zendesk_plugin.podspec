@@ -3,12 +3,12 @@
 # Run `pod lib lint zendesk.podspec' to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'zendesk_plugin'
-  s.version          = '1.0.1'
+  s.name             = 'zendesk_plugin_plus'
+  s.version          = '2.1.0'
   s.license          = { :file => '../LICENSE' }
   s.source           = { :path => '.' }
-  s.authors          = 'Taxfyle Engineering'
-  s.homepage         = 'github.com/taxfyle'
+  s.authors          = 'Teppei Kikuchi'
+  s.homepage         = 'github.com/Tetsukick'
   s.summary          = 'Flutter plugin for Zendesk Chat SDK v2'
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
