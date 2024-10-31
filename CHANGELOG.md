@@ -1,3 +1,9 @@
+## 2.1.0
+
+- Migrated to chat sdk version 3.5.0
+- Migrated to messaging sdk version 5.5.0
+- Migrated to chat-providers sdk version 3.5.0
+
 ## 2.0.0
 
 - Migrated to null safety
