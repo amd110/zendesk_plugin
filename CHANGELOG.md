@@ -1,3 +1,7 @@
+## 2.1.1
+
+- Fixed ios package name
+
 ## 2.1.0
 
 - Migrated to chat sdk version 3.5.0
