@@ -1,3 +1,7 @@
+## 2.1.2
+
+- Update format. (Just run `dart format .`)
+
 ## 2.1.1
 
 - Fixed ios package name

@@ -1,7 +1,9 @@
 name: zendesk_plugin_plus
 description: A Flutter plugin for the Zendesk Chat SDK v2. Provides embed chat functionality in your apps to give your mobile users access to your support team
-version: 2.1.1
+version: 2.1.2
 homepage: https://github.com/Tetsukick/zendesk_plugin
+repository: https://github.com/Tetsukick/zendesk_plugin
+issue_tracker: https://github.com/Tetsukick/zendesk_plugin/issues
 
 environment:
   sdk: ">=2.12.0 <4.0.0"
