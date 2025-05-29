@@ -28,6 +28,12 @@
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+
+
+            <!-- 为 Zendesk 活动单独设置主题 -->
+            <activity
+                android:name="zendesk.classic.messaging.MessagingActivity"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
