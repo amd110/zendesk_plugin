@@ -2,16 +2,15 @@ group = "com.teppei.kikuchi.zendesk.plugin"
 version = "1.0-SNAPSHOT"
 
 buildscript {
-    ext.kotlin_version = '1.8.22'
+    ext.kotlin_version = '1.7.22'
     repositories {
         google()
         mavenCentral()
         maven { url 'https://zendesk.jfrog.io/zendesk/repo' }
-        maven { url 'https://dl.bintray.com/android/android-tools' }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.4'
+        classpath 'com.android.tools.build:gradle:7.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -20,7 +19,6 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://maven.google.com/' }
         maven { url 'https://zendesk.jfrog.io/zendesk/repo' }
 
         all { ArtifactRepository repo ->
@@ -41,7 +39,7 @@ android {
     if (project.android.hasProperty("namespace")) {
         namespace 'com.teppei.kikuchi.zendesk.plugin'
     }
-    compileSdkVersion 34
+    compileSdk 34
 
     sourceSets {
         main.java.srcDirs += "src/main/kotlin"
@@ -66,6 +64,7 @@ android {
 }
 
 dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation group: 'com.zendesk', name: 'chat', version: '3.5.0'
     implementation group: 'com.zendesk', name: 'messaging', version: '5.5.0'
