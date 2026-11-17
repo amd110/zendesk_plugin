@@ -1,6 +1,10 @@
 package com.teppei.kikuchi.zendesk.plugin
 
 import android.app.Activity
+import android.os.Handler
+import android.os.Looper
+import com.zendesk.service.ErrorResponse
+import com.zendesk.service.ZendeskCallback
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -83,13 +87,11 @@ class ZendeskPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             }
 
             "clearVisitorInfo" -> {
-                clearVisitorInfo()
-                result.success(true)
+                clearVisitorInfo(result)
             }
 
             "endChat" -> {
-                endChat()
-                result.success(true)
+                endChat(result)
             }
 
             else -> {
@@ -123,9 +125,21 @@ class ZendeskPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         chatProvider?.setDepartment(department, null)
     }
 
-    private fun clearVisitorInfo() {
-        val providers = Chat.INSTANCE.providers() ?: return
-        // Blank out the visitor info, then drop the department and the identity.
+    /** 主线程 Handler：SDK 回调可能在后台线程，MethodChannel 结果必须在主线程返回。 */
+    private val mainHandler = Handler(Looper.getMainLooper())
+
+    /**
+     * 清空访客信息与部门，并重置访客身份。
+     *
+     * 等 SDK 回调身份重置完成后才返回 [result]，调用方随后设置新身份才是安全的；
+     * Chat 尚未初始化时没有可重置的身份，直接返回成功。
+     */
+    private fun clearVisitorInfo(result: Result) {
+        val providers = Chat.INSTANCE.providers()
+        if (providers == null) {
+            result.success(true)
+            return
+        }
         val emptyVisitorInfo = VisitorInfo.builder()
             .withName("")
             .withEmail("")
@@ -133,11 +147,32 @@ class ZendeskPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             .build()
         providers.profileProvider()?.setVisitorInfo(emptyVisitorInfo, null)
         providers.chatProvider()?.clearDepartment(null)
-        Chat.INSTANCE.resetIdentity(null)
+        Chat.INSTANCE.resetIdentity { _ -> mainHandler.post { result.success(true) } }
     }
 
-    private fun endChat() {
-        Chat.INSTANCE.providers()?.chatProvider()?.endChat(null)
+    /**
+     * 结束进行中的聊天，SDK 确认结束后才返回 [result]。
+     *
+     * Chat 尚未初始化时直接返回成功；SDK 失败时以 [Result.error] 返回，
+     * 错误码为 HTTP 状态码（非 HTTP 错误为 -1）。
+     */
+    private fun endChat(result: Result) {
+        val chatProvider = Chat.INSTANCE.providers()?.chatProvider()
+        if (chatProvider == null) {
+            result.success(true)
+            return
+        }
+        chatProvider.endChat(object : ZendeskCallback<Void>() {
+            override fun onSuccess(value: Void?) {
+                mainHandler.post { result.success(true) }
+            }
+
+            override fun onError(error: ErrorResponse?) {
+                mainHandler.post {
+                    result.error(error?.status?.toString() ?: "", error?.reason, null)
+                }
+            }
+        })
     }
 
     private fun addTags(call: MethodCall) {

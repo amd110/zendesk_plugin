@@ -85,11 +85,15 @@ class Zendesk {
   /// previously set with [setVisitorInfo], and resets the visitor identity.
   ///
   /// Typically called when the user logs out.
+  ///
+  /// 原生 SDK 完成身份重置后才返回，调用方可在返回后安全地设置新身份。
   static Future<void> clearVisitorInfo() async {
     await _channel.invokeMethod<void>('clearVisitorInfo');
   }
 
   /// Ends the chat session currently in progress, if any.
+  ///
+  /// 原生 SDK 确认聊天已结束后才返回；结束失败时抛出 [PlatformException]。
   static Future<void> endChat() async {
     await _channel.invokeMethod<void>('endChat');
   }

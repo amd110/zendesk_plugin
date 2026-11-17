@@ -42,11 +42,9 @@ public class ZendeskPlugin: NSObject, FlutterPlugin {
             removeTags(dictionary: dic!)
             result(true)
         case "clearVisitorInfo":
-            clearVisitorInfo()
-            result(true)
+            clearVisitorInfo(result: result)
         case "endChat":
-            endChat()
-            result(true)
+            endChat(result: result)
         default:
             result("iOS " + UIDevice.current.systemVersion)
         }
@@ -72,17 +70,43 @@ public class ZendeskPlugin: NSObject, FlutterPlugin {
         Chat.instance?.configuration = chatAPIConfig!
     }
     
-    func clearVisitorInfo() {
+    /// 清空访客信息与部门，并重置访客身份。
+    ///
+    /// 等 SDK 回调身份重置完成后才返回 `result`，调用方随后设置新身份才是安全的；
+    /// Chat 尚未初始化时没有可重置的身份，直接返回成功。
+    func clearVisitorInfo(result: @escaping FlutterResult) {
         chatAPIConfig?.visitorInfo = nil
         chatAPIConfig?.department = nil
         if let config = chatAPIConfig {
             Chat.instance?.configuration = config
         }
-        Chat.instance?.resetIdentity(nil)
+        guard let chat = Chat.instance else {
+            result(true)
+            return
+        }
+        chat.resetIdentity {
+            DispatchQueue.main.async { result(true) }
+        }
     }
 
-    func endChat() {
-        Chat.chatProvider?.endChat { (_: Result<Bool, DeliveryStatusError>) in }
+    /// 结束进行中的聊天，SDK 确认结束后才返回 `result`。
+    ///
+    /// Chat 尚未初始化时直接返回成功；SDK 失败时返回错误码为 `end_chat_failed` 的错误。
+    func endChat(result: @escaping FlutterResult) {
+        guard let chatProvider = Chat.chatProvider else {
+            result(true)
+            return
+        }
+        chatProvider.endChat { (res: Result<Bool, DeliveryStatusError>) in
+            DispatchQueue.main.async {
+                switch res {
+                case .success:
+                    result(true)
+                case .failure(let error):
+                    result(FlutterError(code: "end_chat_failed", message: "\(error)", details: nil))
+                }
+            }
+        }
     }
 
     func addTags(dictionary: Dictionary<String, Any>) {

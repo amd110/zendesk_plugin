@@ -1,3 +1,9 @@
+## 2.2.2
+
+- `clearVisitorInfo()` 改为等原生 SDK 完成身份重置后才返回（Android 使用 `resetIdentity(CompletionCallback)`，iOS 使用 `resetIdentity(_:)` 的完成回调）。之前在重置完成前就返回，新身份可能在旧身份清理过程中被设置。
+- `endChat()` 改为等原生 SDK 确认聊天已结束后才返回；结束失败时抛出 `PlatformException`，不再总是返回成功。
+- Chat 尚未初始化时，以上两个方法仍会立即返回成功。
+
 ## 2.2.1
 
 - Android: downgraded `com.zendesk:chat` from 3.8.0 to 3.7.2 and `com.zendesk:messaging` from 5.8.0 to 5.7.3, because 3.8.0 / 5.8.0 require `compileSdk` 37. The app can stay on `compileSdk` 36 again.
