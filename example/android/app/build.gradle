@@ -6,18 +6,11 @@ plugins {
 
 android {
     namespace = "com.teppei.kikuchi.zendesk.plugin.example"
-    compileSdk = 37
+    compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
-    }
-
-    packaging {
-        resources {
-            // 多个依赖都带有 OSGI 的 MANIFEST.MF,合并时会冲突,这里排除
-            excludes += ['META-INF/versions/9/OSGI-INF/MANIFEST.MF']
-        }
     }
 
     lintOptions {

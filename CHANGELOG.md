@@ -1,3 +1,8 @@
+## 2.2.1
+
+- Android: downgraded `com.zendesk:chat` from 3.8.0 to 3.7.2 and `com.zendesk:messaging` from 5.8.0 to 5.7.3, because 3.8.0 / 5.8.0 require `compileSdk` 37. The app can stay on `compileSdk` 36 again.
+- Example: restored `compileSdk` to `flutter.compileSdkVersion` and removed the no-longer-needed `META-INF` packaging exclusion.
+
 ## 2.2.0
 
 - Added `Zendesk.clearVisitorInfo()` to clear visitor info and reset the visitor identity.
