@@ -1,3 +1,10 @@
+## 2.2.0
+
+- Added `Zendesk.clearVisitorInfo()` to clear visitor info and reset the visitor identity.
+- Added `Zendesk.endChat()` to end the chat in progress.
+- iOS: pinned `ZendeskChatSDK` to 5.0.8.
+- Android: upgraded build tooling (Gradle 8.14.3, AGP 8.11.1, Kotlin 2.2.20) to work with Flutter 3.47.5.
+
 ## 2.1.2
 
 - Update format. (Just run `dart format .`)

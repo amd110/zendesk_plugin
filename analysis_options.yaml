@@ -22,6 +22,9 @@ analyzer:
     # Please see https://github.com/flutter/flutter/pull/24528 for details.
   exclude:
     - "bin/cache/**"
+    - build/**
+    - android/**
+    - ios/**
 linter:
   rules:
     - always_declare_return_types

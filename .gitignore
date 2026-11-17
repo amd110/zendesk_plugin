@@ -91,3 +91,7 @@ unlinked_spec.ds
 
 # Coverage
 coverage/
+
+# FVM Version Cache
+.fvm/
+.fvmrc

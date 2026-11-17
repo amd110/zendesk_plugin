@@ -47,7 +47,21 @@ class _MyAppState extends State<MyApp> {
                 color: Colors.blueGrey,
                 textColor: Colors.white,
                 child: const Text('Open Chat'),
-              )
+              ),
+              // 结束当前正在进行的会话
+              MaterialButton(
+                onPressed: endChat,
+                color: Colors.blueGrey,
+                textColor: Colors.white,
+                child: const Text('End Chat'),
+              ),
+              // 清除访客信息并重置身份(通常在用户退出登录时调用)
+              MaterialButton(
+                onPressed: clearVisitorInfo,
+                color: Colors.blueGrey,
+                textColor: Colors.white,
+                child: const Text('Clear Visitor Info'),
+              ),
             ],
           ),
         ),
@@ -63,7 +77,25 @@ class _MyAppState extends State<MyApp> {
           phoneNumber: '0000000000',
           department: 'Support');
       await Zendesk.startChat();
-    } on dynamic catch (ex) {
+    } catch (ex) {
+      print('An error occured $ex');
+    }
+  }
+
+  /// 结束当前正在进行的会话
+  Future<void> endChat() async {
+    try {
+      await Zendesk.endChat();
+    } catch (ex) {
+      print('An error occured $ex');
+    }
+  }
+
+  /// 清除访客信息(姓名、邮箱、手机号、部门)并重置访客身份
+  Future<void> clearVisitorInfo() async {
+    try {
+      await Zendesk.clearVisitorInfo();
+    } catch (ex) {
       print('An error occured $ex');
     }
   }

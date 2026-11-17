@@ -80,4 +80,17 @@ class Zendesk {
       'tags': tags,
     });
   }
+
+  /// Clears the visitor information (name, email, phone number, department)
+  /// previously set with [setVisitorInfo], and resets the visitor identity.
+  ///
+  /// Typically called when the user logs out.
+  static Future<void> clearVisitorInfo() async {
+    await _channel.invokeMethod<void>('clearVisitorInfo');
+  }
+
+  /// Ends the chat session currently in progress, if any.
+  static Future<void> endChat() async {
+    await _channel.invokeMethod<void>('endChat');
+  }
 }

@@ -82,6 +82,16 @@ class ZendeskPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 result.success(true)
             }
 
+            "clearVisitorInfo" -> {
+                clearVisitorInfo()
+                result.success(true)
+            }
+
+            "endChat" -> {
+                endChat()
+                result.success(true)
+            }
+
             else -> {
                 result.notImplemented()
             }
@@ -111,6 +121,23 @@ class ZendeskPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             .build()
         profileProvider?.setVisitorInfo(visitorInfo, null)
         chatProvider?.setDepartment(department, null)
+    }
+
+    private fun clearVisitorInfo() {
+        val providers = Chat.INSTANCE.providers() ?: return
+        // Blank out the visitor info, then drop the department and the identity.
+        val emptyVisitorInfo = VisitorInfo.builder()
+            .withName("")
+            .withEmail("")
+            .withPhoneNumber("")
+            .build()
+        providers.profileProvider()?.setVisitorInfo(emptyVisitorInfo, null)
+        providers.chatProvider()?.clearDepartment(null)
+        Chat.INSTANCE.resetIdentity(null)
+    }
+
+    private fun endChat() {
+        Chat.INSTANCE.providers()?.chatProvider()?.endChat(null)
     }
 
     private fun addTags(call: MethodCall) {

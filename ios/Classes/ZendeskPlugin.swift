@@ -41,6 +41,12 @@ public class ZendeskPlugin: NSObject, FlutterPlugin {
         case "removeTags":
             removeTags(dictionary: dic!)
             result(true)
+        case "clearVisitorInfo":
+            clearVisitorInfo()
+            result(true)
+        case "endChat":
+            endChat()
+            result(true)
         default:
             result("iOS " + UIDevice.current.systemVersion)
         }
@@ -66,6 +72,19 @@ public class ZendeskPlugin: NSObject, FlutterPlugin {
         Chat.instance?.configuration = chatAPIConfig!
     }
     
+    func clearVisitorInfo() {
+        chatAPIConfig?.visitorInfo = nil
+        chatAPIConfig?.department = nil
+        if let config = chatAPIConfig {
+            Chat.instance?.configuration = config
+        }
+        Chat.instance?.resetIdentity(nil)
+    }
+
+    func endChat() {
+        Chat.chatProvider?.endChat { (_: Result<Bool, DeliveryStatusError>) in }
+    }
+
     func addTags(dictionary: Dictionary<String, Any>) {
         let tags = dictionary["tags"] as? Array<String> ?? []
         chatAPIConfig?.tags.append(contentsOf: tags)

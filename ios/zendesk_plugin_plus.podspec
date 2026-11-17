@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'zendesk_plugin_plus'
-  s.version          = '2.1.0'
+  s.version          = '2.2.0'
   s.license          = { :file => '../LICENSE' }
   s.source           = { :path => '.' }
   s.authors          = 'Teppei Kikuchi'
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.summary          = 'Flutter plugin for Zendesk Chat SDK v2'
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'ZendeskChatSDK'
+  s.dependency 'ZendeskChatSDK', '5.0.8'
   s.platform = :ios, '12.0'
   s.static_framework = true
 
